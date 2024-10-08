@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pose Viewer</title>
+    <!-- Include the pose-viewer library -->
+    <script src="https://unpkg.com/pose-viewer@latest/dist/pose-viewer.js"></script>
+</head>
+<body>
+    <h1>Pose Viewer</h1>
+    <!-- Pose Viewer component -->
+    <pose-viewer id="pose-viewer"></pose-viewer>
+
+    <script>
+        // Function to display the pose in the pose-viewer component
+        function displayPose(poseData) {
+            const poseViewer = document.getElementById('pose-viewer');
+            if (poseViewer) {
+                poseViewer.loadPose(pposeData);
+            } else {
+                console.error("Pose Viewer not found.");
+            }
+        }
+
+        // Listen for messages from Thunkable Web Viewer
+        window.addEventListener('message', function (event) {
+            if (event.data && typeof event.data === 'string') {
+                // Load the pose data into the viewer
+                displayPose(event.data);
+            } else {
+                console.error("Invalid pose data received.");
+            }
+        });
+    </script>
+</body>
+</html>
